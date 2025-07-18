@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+@theme {
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+
+    --spacing-sm: 0.25rem;
+    --spacing-md: 0.5rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+
+    --padding-sm: 0.25rem;
+    --padding-md: 0.5rem;
+    --padding-lg: 1rem;
+    --padding-xl: 1.5rem;
+
+    --gap-xs: 0.125rem;
+    --gap-sm: 0.25rem;
+    --gap-md: 0.5rem;
+    --gap-lg: 1rem;
+    --gap-xl: 1.5rem;
+
+    --radius-sm: 0.125rem;
+    --radius-md: 0.25rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 1rem;
+
+    --font-noto-sans: "Noto Sans";
+
+    --font-sans: var(--font-noto-sans);
+    --font-serif: var(--font-noto-sans);
+    --font-mono: var(--font-noto-sans);
+
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-md: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-hero: 6rem;
+
+    --height-icon: 1.5rem;
+
+    --width-icon: 1.5rem;
+
+    /* region Colors */
+    --color-*: initial;
+
+    /* region Base */
+    --color-white: oklch(1 0 0);
+    --color-black: oklch(0 0 0);
+
+    /* region State Colors */
+    /* region Danger */
+    --color-rimelight-danger-50: oklch(90.00% 0.05 30);
+    --color-rimelight-danger-100: oklch(0.916 0.07 30);
+    --color-rimelight-danger-200: oklch(0.746 0.09 30);
+    --color-rimelight-danger-300: oklch(0.667 0.11 30);
+    --color-rimelight-danger-400: oklch(0.57 0.13 30);
+    --color-rimelight-danger-500: oklch(0.505 0.14 30);
+    --color-rimelight-danger-600: oklch(0.354 0.15 30);
+    --color-rimelight-danger-700: oklch(0.28 0.16 30);
+    --color-rimelight-danger-800: oklch(0.243 0.17 30);
+    --color-rimelight-danger-900: oklch(0.214 0.18 30);
+    /* endregion */
+    /* region Warning */
+    --color-rimelight-warning-50: oklch(90.00% 0.08 73.519);
+    --color-rimelight-warning-100: oklch(0.85 0.09 73.519);
+    --color-rimelight-warning-200: oklch(0.78 0.10 73.519);
+    --color-rimelight-warning-300: oklch(0.72 0.105 73.519);
+    --color-rimelight-warning-400: oklch(0.66 0.108 73.519);
+    --color-rimelight-warning-500: oklch(0.608 0.111 73.519);
+    --color-rimelight-warning-600: oklch(0.55 0.115 73.519);
+    --color-rimelight-warning-700: oklch(0.48 0.118 73.519);
+    --color-rimelight-warning-800: oklch(0.40 0.121 73.519);
+    --color-rimelight-warning-900: oklch(0.32 0.124 73.519);
+    /* endregion */
+    /* region Success */
+    --color-rimelight-success-50: oklch(90.00% 0.05 145);
+    --color-rimelight-success-100: oklch(0.85 0.06 145);
+    --color-rimelight-success-200: oklch(0.78 0.07 145);
+    --color-rimelight-success-300: oklch(0.72 0.08 145);
+    --color-rimelight-success-400: oklch(0.66 0.09 145);
+    --color-rimelight-success-500: oklch(0.60 0.10 145);
+    --color-rimelight-success-600: oklch(0.55 0.11 145);
+    --color-rimelight-success-700: oklch(0.48 0.12 145);
+    --color-rimelight-success-800: oklch(0.40 0.13 145);
+    --color-rimelight-success-900: oklch(0.32 0.14 145);
+    /* endregion */
+    /* endregion */
+    /* region Neutrals */
+    --color-rimelight-neutral-50: oklch(98.2% 0.002 247.8);
+    --color-rimelight-neutral-100: oklch(94.2% 0.005 247.9);
+    --color-rimelight-neutral-200: oklch(91.1% 0.007 247.9);
+    --color-rimelight-neutral-300: oklch(86.7% 0.011 247.9);
+    --color-rimelight-neutral-400: oklch(76.9% 0.015 248);
+    --color-rimelight-neutral-500: oklch(55.8% 0.016 244.9);
+    --color-rimelight-neutral-600: oklch(42.8% 0.015 248.2);
+    --color-rimelight-neutral-700: oklch(34.5% 0.013 248.2);
+    --color-rimelight-neutral-800: oklch(26.2% 0.009 248.2);
+    --color-rimelight-neutral-900: oklch(22.9% 0.007 248.1);
+    /* endregion */
+    /* region Rimelight Theme */
+    --color-rimelight-primary-50: oklch(90.00% 0.008 249.39);
+    --color-rimelight-primary-100: oklch(0.916 0.031 252.694);
+    --color-rimelight-primary-200: oklch(0.746 0.09 250.584);
+    --color-rimelight-primary-300: oklch(0.667 0.117 252.029);
+    --color-rimelight-primary-400: oklch(0.57 0.126 252.114);
+    --color-rimelight-primary-500: oklch(0.505 0.11 251.9);
+    --color-rimelight-primary-600: oklch(0.354 0.119 259.252);
+    --color-rimelight-primary-700: oklch(0.28 0.081 260.941);
+    --color-rimelight-primary-800: oklch(0.243 0.064 260.503);
+    --color-rimelight-primary-900: oklch(0.214 0.061 265.195);
+
+    --color-rimelight-secondary-50: oklch(98.33% 0.016 82.86);
+    --color-rimelight-secondary-100: oklch(95.53% 0.041 82.86);
+    --color-rimelight-secondary-200: oklch(91.63% 0.074 82.86);
+    --color-rimelight-secondary-300: oklch(86.43% 0.112 82.86);
+    --color-rimelight-secondary-400: oklch(79.63% 0.131 82.86);
+    --color-rimelight-secondary-500: oklch(71.43% 0.1226 82.86);
+    --color-rimelight-secondary-600: oklch(60.83% 0.108 82.86);
+    --color-rimelight-secondary-700: oklch(51.93% 0.091 82.86);
+    --color-rimelight-secondary-800: oklch(44.93% 0.074 82.86);
+    --color-rimelight-secondary-900: oklch(39.73% 0.063 82.86);
+
+    --color-rimelight-tertiary-50: oklch(97.7% 0.014 308.3);
+    --color-rimelight-tertiary-100: oklch(94.6% 0.033 307.2);
+    --color-rimelight-tertiary-200: oklch(90.2% 0.06 306.7);
+    --color-rimelight-tertiary-300: oklch(82.7% 0.108 306.4);
+    --color-rimelight-tertiary-400: oklch(72.2% 0.177 305.5);
+    --color-rimelight-tertiary-500: oklch(62.7% 0.233 303.9);
+    --color-rimelight-tertiary-600: oklch(55.8% 0.252 302.3);
+    --color-rimelight-tertiary-700: oklch(49.6% 0.237 301.9);
+    --color-rimelight-tertiary-800: oklch(43.8% 0.198 303.7);
+    --color-rimelight-tertiary-900: oklch(38.1% 0.166 305);
+    /* endregion */
+    /* region Callouts */
+    --color-rimelight-callout-note: oklch(68.6% 0.208 142.9);
+    --color-rimelight-callout-tip: oklch(77.7% 0.135 98.4);
+    --color-rimelight-callout-warning: oklch(61.5% 0.127 68.2);
+    --color-rimelight-callout-danger: oklch(60.9% 0.164 23.3);
+    --color-rimelight-callout-commentary-internal: oklch(55.7% 0.19 322.5);
+    --color-rimelight-callout-commentary-external: oklch(55.7% 0.19 322.5);
+    --color-rimelight-callout-ideation: oklch(47.1% 0.147 302.4);
+    --color-rimelight-callout-creator-internal: oklch(61.3% 0.093 244.1);
+    --color-rimelight-callout-creator-external: oklch(41.7% 0.128 266.1);
+    /* endregion */
+    --color-grand-tale-primary-50: oklch(87.1% 0.069 18.6);
+    --color-grand-tale-primary-100: oklch(76.9% 0.137 20.7);
+    --color-grand-tale-primary-200: oklch(70.9% 0.184 23);
+    --color-grand-tale-primary-300: oklch(66.7% 0.22 25.5);
+    --color-grand-tale-primary-400: oklch(62% 0.255 29.2);
+    --color-grand-tale-primary-500: oklch(53.3% 0.219 29.2);
+    --color-grand-tale-primary-600: oklch(47.3% 0.194 29.2);
+    --color-grand-tale-primary-700: oklch(39.1% 0.161 29.2);
+    --color-grand-tale-primary-800: oklch(38.3% 0.157 29.2);
+    --color-grand-tale-primary-900: oklch(27.1% 0.111 29.2);
+
+    --color-grand-tale-secondary-50: oklch(78.6% 0.172 68.6);
+    --color-grand-tale-secondary-100: oklch(93.7% 0 68.6);
+    --color-grand-tale-secondary-200: oklch(87% 0 68.6);
+    --color-grand-tale-secondary-300: oklch(79.8% 0 68.6);
+    --color-grand-tale-secondary-400: oklch(81.4% 0.17 76.9);
+    --color-grand-tale-secondary-500: oklch(65% 0 68.6);
+    --color-grand-tale-secondary-600: oklch(57.6% 0 68.6);
+    --color-grand-tale-secondary-700: oklch(50% 0 68.6);
+    --color-grand-tale-secondary-800: oklch(42% 0 68.6);
+    --color-grand-tale-secondary-900: oklch(33.7% 0 68.6);
+
+    --color-grand-tale-tertiary-50: oklch(97.6% 0 68.6);
+    --color-grand-tale-tertiary-100: oklch(93.7% 0 68.6);
+    --color-grand-tale-tertiary-200: oklch(87% 0 68.6);
+    --color-grand-tale-tertiary-300: oklch(79.8% 0 68.6);
+    --color-grand-tale-tertiary-400: oklch(72.5% 0 68.6);
+    --color-grand-tale-tertiary-500: oklch(65% 0 68.6);
+    --color-grand-tale-tertiary-600: oklch(57.6% 0 68.6);
+    --color-grand-tale-tertiary-700: oklch(50% 0 68.6);
+    --color-grand-tale-tertiary-800: oklch(42% 0 68.6);
+    --color-grand-tale-tertiary-900: oklch(33.7% 0 68.6);
+
+    /* region Entities */
+    --color-grand-tale-entity-ability: oklch(45.2% 0.313 264.1);
+    --color-grand-tale-entity-achievement: oklch(86.6% 0.295 142.5);
+    --color-grand-tale-entity-character: oklch(45.2% 0.313 264.1);
+    --color-grand-tale-entity-cosmetic: oklch(96.8% 0.211 109.8);
+    --color-grand-tale-entity-item: oklch(45.2% 0.313 264.1);
+    --color-grand-tale-entity-player: oklch(62.8% 0.258 29.2);
+    /* #endregion */
+}
+/* region Scrollbar */
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track {
+    background: var(--color-rimelight-primary-700);
+}
+
+body::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb {
+    background: var(--color-rimelight-primary-500);
+}
+
+/* endregion */
+
+/* region Document Editor Scrollbars */
+.document-editor-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.document-editor-scrollbar::-webkit-scrollbar-track {
+    background: var(--color-rimelight-primary-700);
+}
+
+.document-editor-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-rimelight-primary-500);
+}
+/* endregion */
+
+dialog::backdrop {
+    background-color: #000000;
+    opacity: 0.25;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: var(--color-rimelight-primary-500);
+}
