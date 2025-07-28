@@ -10,8 +10,8 @@ import type {
     ScriptBlockData,
     TextNode,
 } from "~/types/blocks";
-import { EntryType} from "~/types/Entry";
-import type {EntryData} from "~/types/Entry";
+import { EntryType} from "#shared-types/Entry";
+import type {EntryData} from "#shared-types/Entry";
 import BlockSchema, { topLevelAllowedBlocks } from "~/config/blocks/blockSchema";
 import { createBaseBlock } from "~/utils/blocks/createBaseBlock";
 import { entryTemplates } from "~/data/templates/entryTemplates";

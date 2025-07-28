@@ -1,6 +1,6 @@
 import type { Ref } from "vue";
 import { computed  } from "vue";
-import type { EntryData } from "~/types/Entry";
+import type { EntryData } from "#shared-types/Entry";
 
 /**
  * Options for the usePropertyPanel composable.

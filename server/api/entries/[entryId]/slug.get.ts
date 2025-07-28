@@ -1,5 +1,5 @@
 import { defineEventHandler, getRouterParam, createError } from "h3";
-import { getAllEntryIdsAndSlugs } from "~/server/utils/entryUtils";
+import { getAllEntryIdsAndSlugs } from "../../../utils/entryUtils";
 
 /**
  * Handles GET requests to /api/entries/[entryId]/slug.

@@ -1,6 +1,6 @@
 import { ref, watch  } from "vue";
 import type {Ref} from "vue";
-import type { EntryData } from "~/types/Entry";
+import type { EntryData } from "#shared-types/Entry";
 
 export interface BreadcrumbItem {
     name: string;

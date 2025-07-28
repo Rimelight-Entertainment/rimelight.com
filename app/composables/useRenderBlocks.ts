@@ -1,7 +1,7 @@
 import { h } from 'vue';
 import type {VNode} from 'vue';
 import BlockSchema from '~/config/blocks/blockSchema';
-import BlockSlot from '~/components/basic/entry/base/BlockSlot.vue';
+import BlockSlot from '~/components/entry/base/BlockSlot.vue';
 import type { BlockData } from '@/types/blocks';
 import type {
     EditorCallbacks,

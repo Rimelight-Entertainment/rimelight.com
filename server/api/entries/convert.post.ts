@@ -1,6 +1,6 @@
 import { defineEventHandler, readBody, createError } from "h3";
-import { convertEntryTemplate } from "~/server/utils/entryUtils";
-import { EntryType } from "~/types/Entry";
+import { convertEntryTemplate } from "../../utils/entryUtils";
+import { EntryType } from "#shared-types/Entry";
 
 // Define the expected request body for this API route
 interface ConvertEntryRequest {

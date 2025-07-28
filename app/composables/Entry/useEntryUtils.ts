@@ -1,4 +1,4 @@
-import type { EntryType, EntryData, SearchResults, EntryNode } from "~/types/Entry";
+import type { EntryType, EntryData, SearchResults, EntryNode } from "#shared-types/Entry";
 import { useRouter } from "#app";
 import type { ApiErrorResponse } from "~/types/api";
 

@@ -4,3 +4,6 @@ onlyBuiltDependencies:
   - esbuild
   - sharp
   - unrs-resolver
+
+overrides:
+  rimelight-web-framework: link:../../../AppData/Local/pnpm/global/5/node_modules/rimelight-web-framework

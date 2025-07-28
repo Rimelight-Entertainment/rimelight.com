@@ -57,55 +57,44 @@
 
     /* region State Colors */
     /* region Danger */
-    --color-rimelight-danger-50: oklch(90.00% 0.05 30);
-    --color-rimelight-danger-100: oklch(0.916 0.07 30);
-    --color-rimelight-danger-200: oklch(0.746 0.09 30);
-    --color-rimelight-danger-300: oklch(0.667 0.11 30);
-    --color-rimelight-danger-400: oklch(0.57 0.13 30);
-    --color-rimelight-danger-500: oklch(0.505 0.14 30);
-    --color-rimelight-danger-600: oklch(0.354 0.15 30);
-    --color-rimelight-danger-700: oklch(0.28 0.16 30);
-    --color-rimelight-danger-800: oklch(0.243 0.17 30);
-    --color-rimelight-danger-900: oklch(0.214 0.18 30);
+    --color-danger-50: oklch(90.00% 0.05 30);
+    --color-danger-100: oklch(0.916 0.07 30);
+    --color-danger-200: oklch(0.746 0.09 30);
+    --color-danger-300: oklch(0.667 0.11 30);
+    --color-danger-400: oklch(0.57 0.13 30);
+    --color-danger-500: oklch(0.505 0.14 30);
+    --color-danger-600: oklch(0.354 0.15 30);
+    --color-danger-700: oklch(0.28 0.16 30);
+    --color-danger-800: oklch(0.243 0.17 30);
+    --color-danger-900: oklch(0.214 0.18 30);
     /* endregion */
     /* region Warning */
-    --color-rimelight-warning-50: oklch(90.00% 0.08 73.519);
-    --color-rimelight-warning-100: oklch(0.85 0.09 73.519);
-    --color-rimelight-warning-200: oklch(0.78 0.10 73.519);
-    --color-rimelight-warning-300: oklch(0.72 0.105 73.519);
-    --color-rimelight-warning-400: oklch(0.66 0.108 73.519);
-    --color-rimelight-warning-500: oklch(0.608 0.111 73.519);
-    --color-rimelight-warning-600: oklch(0.55 0.115 73.519);
-    --color-rimelight-warning-700: oklch(0.48 0.118 73.519);
-    --color-rimelight-warning-800: oklch(0.40 0.121 73.519);
-    --color-rimelight-warning-900: oklch(0.32 0.124 73.519);
+    --color-warning-50: oklch(90.00% 0.08 73.519);
+    --color-warning-100: oklch(0.85 0.09 73.519);
+    --color-warning-200: oklch(0.78 0.10 73.519);
+    --color-warning-300: oklch(0.72 0.105 73.519);
+    --color-warning-400: oklch(0.66 0.108 73.519);
+    --color-warning-500: oklch(0.608 0.111 73.519);
+    --color-warning-600: oklch(0.55 0.115 73.519);
+    --color-warning-700: oklch(0.48 0.118 73.519);
+    --color-warning-800: oklch(0.40 0.121 73.519);
+    --color-warning-900: oklch(0.32 0.124 73.519);
     /* endregion */
     /* region Success */
-    --color-rimelight-success-50: oklch(90.00% 0.05 145);
-    --color-rimelight-success-100: oklch(0.85 0.06 145);
-    --color-rimelight-success-200: oklch(0.78 0.07 145);
-    --color-rimelight-success-300: oklch(0.72 0.08 145);
-    --color-rimelight-success-400: oklch(0.66 0.09 145);
-    --color-rimelight-success-500: oklch(0.60 0.10 145);
-    --color-rimelight-success-600: oklch(0.55 0.11 145);
-    --color-rimelight-success-700: oklch(0.48 0.12 145);
-    --color-rimelight-success-800: oklch(0.40 0.13 145);
-    --color-rimelight-success-900: oklch(0.32 0.14 145);
+    --color-success-50: oklch(90.00% 0.05 145);
+    --color-success-100: oklch(0.85 0.06 145);
+    --color-success-200: oklch(0.78 0.07 145);
+    --color-success-300: oklch(0.72 0.08 145);
+    --color-success-400: oklch(0.66 0.09 145);
+    --color-success-500: oklch(0.60 0.10 145);
+    --color-success-600: oklch(0.55 0.11 145);
+    --color-success-700: oklch(0.48 0.12 145);
+    --color-success-800: oklch(0.40 0.13 145);
+    --color-success-900: oklch(0.32 0.14 145);
     /* endregion */
     /* endregion */
-    /* region Neutrals */
-    --color-rimelight-neutral-50: oklch(98.2% 0.002 247.8);
-    --color-rimelight-neutral-100: oklch(94.2% 0.005 247.9);
-    --color-rimelight-neutral-200: oklch(91.1% 0.007 247.9);
-    --color-rimelight-neutral-300: oklch(86.7% 0.011 247.9);
-    --color-rimelight-neutral-400: oklch(76.9% 0.015 248);
-    --color-rimelight-neutral-500: oklch(55.8% 0.016 244.9);
-    --color-rimelight-neutral-600: oklch(42.8% 0.015 248.2);
-    --color-rimelight-neutral-700: oklch(34.5% 0.013 248.2);
-    --color-rimelight-neutral-800: oklch(26.2% 0.009 248.2);
-    --color-rimelight-neutral-900: oklch(22.9% 0.007 248.1);
-    /* endregion */
-    /* region Rimelight Theme */
+
+    /* region Theme */
     --color-rimelight-primary-50: oklch(90.00% 0.008 249.39);
     --color-rimelight-primary-100: oklch(0.916 0.031 252.694);
     --color-rimelight-primary-200: oklch(0.746 0.09 250.584);
@@ -139,6 +128,20 @@
     --color-rimelight-tertiary-800: oklch(43.8% 0.198 303.7);
     --color-rimelight-tertiary-900: oklch(38.1% 0.166 305);
     /* endregion */
+
+    /* region Neutrals */
+    --color-rimelight-neutral-50: oklch(98.2% 0.002 247.8);
+    --color-rimelight-neutral-100: oklch(94.2% 0.005 247.9);
+    --color-rimelight-neutral-200: oklch(91.1% 0.007 247.9);
+    --color-rimelight-neutral-300: oklch(86.7% 0.011 247.9);
+    --color-rimelight-neutral-400: oklch(76.9% 0.015 248);
+    --color-rimelight-neutral-500: oklch(55.8% 0.016 244.9);
+    --color-rimelight-neutral-600: oklch(42.8% 0.015 248.2);
+    --color-rimelight-neutral-700: oklch(34.5% 0.013 248.2);
+    --color-rimelight-neutral-800: oklch(26.2% 0.009 248.2);
+    --color-rimelight-neutral-900: oklch(22.9% 0.007 248.1);
+    /* endregion */
+
     /* region Callouts */
     --color-rimelight-callout-note: oklch(68.6% 0.208 142.9);
     --color-rimelight-callout-tip: oklch(77.7% 0.135 98.4);
@@ -193,10 +196,6 @@
     /* #endregion */
 }
 /* region Scrollbar */
-body::-webkit-scrollbar,
-html::-webkit-scrollbar {
-    width: 8px;
-}
 
 body::-webkit-scrollbar-track,
 html::-webkit-scrollbar-track {
@@ -223,14 +222,3 @@ html::-webkit-scrollbar-thumb {
     background: var(--color-rimelight-primary-500);
 }
 /* endregion */
-
-dialog::backdrop {
-    background-color: #000000;
-    opacity: 0.25;
-}
-
-hr {
-    border: none;
-    height: 1px;
-    background-color: var(--color-rimelight-primary-500);
-}

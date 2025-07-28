@@ -1,8 +1,8 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import type { CombinedEntryTemplate, EntryData , EntrySearchData, EntrySearchResults, EntrySearchParams } from "~/types/Entry";
-import { EntryType } from "~/types/Entry";
-import { entryTemplates } from "~/data/templates/entryTemplates";
+import type { CombinedEntryTemplate, EntryData , EntrySearchData, EntrySearchResults, EntrySearchParams } from "#shared-types/Entry";
+import { EntryType } from "#shared-types/Entry";
+import { entryTemplates } from "../../data/templates/entryTemplates";
 import { ulid } from "ulid";
 
 const PAGES_DIRECTORY = path.join(process.cwd(), "data", "entries");

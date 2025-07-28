@@ -1,5 +1,5 @@
 import { defineEventHandler, createError } from "h3";
-import { fetchEntryStructure } from "~/server/utils/entryUtils";
+import { fetchEntryStructure } from "../../utils/entryUtils";
 
 /**
  * Handles GET requests to /api/entries/structure.

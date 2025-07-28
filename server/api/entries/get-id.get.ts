@@ -1,5 +1,5 @@
 import { defineEventHandler, getQuery, createError } from "h3";
-import { getEntryBySlug } from "~/server/utils/entryUtils";
+import { getEntryBySlug } from "../../utils/entryUtils";
 
 /**
  * Handles GET requests to /api/entries/get-id.

@@ -1,6 +1,6 @@
-import { EntryType, EntryCategory } from "@/types/Entry";
-import type { PropertyPanelSchema, PolicyProperties, SpeciesProperties, CharacterProperties, ObjectProperties, TaleProperties, ItemProperties, SkillProperties, HeroProperties, CardProperties, SeriesProperties, EpisodeProperties } from "@/types/Entry";
-import type { BlockData, SectionBlockData } from "@/types/blocks";
+import { EntryType, EntryCategory } from "~/types/Entry";
+import type { PropertyPanelSchema, PolicyProperties, SpeciesProperties, CharacterProperties, ObjectProperties, TaleProperties, ItemProperties, SkillProperties, HeroProperties, CardProperties, SeriesProperties, EpisodeProperties } from "../../types/Entry";
+import type { BlockData, SectionBlockData } from "../../types/blocks";
 import { ulid } from "ulid";
 
 export interface EntryTemplate {

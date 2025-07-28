@@ -3,7 +3,7 @@ import { useRoute, useHead, useAsyncData, createError, useRuntimeConfig } from '
 import { computed } from 'vue';
 import type { ApiErrorResponse } from "@/types/api";
 import type { EntryData } from '~/types/Entry';
-import EntryLayout from "~/components/basic/entry/EntryLayout.vue";
+import EntryLayout from "~/components/entry/EntryLayout.vue";
 
 const route = useRoute();
 const config = useRuntimeConfig();

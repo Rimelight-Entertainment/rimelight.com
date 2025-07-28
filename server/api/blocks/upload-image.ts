@@ -1,4 +1,5 @@
-import { defineEventHandler, readMultipartFormData, createError, H3Event } from 'h3';
+import type { H3Event } from 'h3';
+import { defineEventHandler, readMultipartFormData, createError } from 'h3';
 import { writeFile, stat, mkdir } from 'fs/promises';
 import path from 'path';
 

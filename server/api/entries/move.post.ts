@@ -1,5 +1,5 @@
 import { defineEventHandler, readBody, createError } from "h3";
-import { moveEntry } from "~/server/utils/entryUtils";
+import { moveEntry } from "../../utils/entryUtils";
 
 /**
  * Handles POST requests to move a entry.

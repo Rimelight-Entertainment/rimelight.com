@@ -1,5 +1,5 @@
 import { defineEventHandler, getRouterParams, readBody, createError, H3Error } from "h3"; // Make sure to import H3Error
-import { getEntryBySlug, saveEntry } from "~/server/utils/entryUtils";
+import { getEntryBySlug, saveEntry } from "../../utils/entryUtils";
 
 export default defineEventHandler(async (event) => {
     const method = event.node.req.method;

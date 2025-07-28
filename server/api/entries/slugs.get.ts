@@ -1,5 +1,5 @@
 import { defineEventHandler, createError } from "h3";
-import { getAllEntrys } from "~/server/utils/entryUtils";
+import { getAllEntrys } from "../../utils/entryUtils";
 
 /**
  * Handles GET requests to /api/entries/slugs.

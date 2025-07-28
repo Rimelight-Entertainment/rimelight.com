@@ -1,5 +1,5 @@
 import { defineEventHandler, getQuery, createError } from "h3";
-import { searchEntrys } from "~/server/utils/entryUtils";
+import { searchEntrys } from "../../utils/entryUtils";
 
 /**
  * Handles GET requests to /api/entries/search.

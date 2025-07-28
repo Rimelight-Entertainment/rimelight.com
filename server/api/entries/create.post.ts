@@ -1,6 +1,6 @@
 import { defineEventHandler, readBody, createError } from "h3";
-import { createEntryFromTemplate, doesEntryExist } from "~/server/utils/entryUtils";
-import { EntryType } from "~/types/Entry";
+import { createEntryFromTemplate, doesEntryExist } from "../../utils/entryUtils";
+import { EntryType } from "#shared-types/Entry";
 
 /**
  * This handler will respond to POST requests to /api/entries/create

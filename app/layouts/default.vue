@@ -3,7 +3,6 @@ import { useHead, useRoute } from '#app';
 import { computed } from 'vue';
 import Header from "../components/specific/navigation/Header.vue";
 import Footer from "../components/specific/navigation/Footer.vue";
-import CookieBanner from "~/components/specific/banners/CookieBanner.vue";
 
 const route = useRoute();
 
@@ -29,7 +28,7 @@ useHead({
       <slot />
     </main>
     <Footer />
-    <CookieBanner />
+    <RLCookieBanner cookie-policy-link="/documents/cookie-policy" />
   </div>
 </template>
 
