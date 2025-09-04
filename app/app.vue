@@ -4,7 +4,6 @@ import { ar, en, es, fr, ja, ko, pt, ro, zh_cn } from '@nuxt/ui/locale'
 import type { NavigationMenuItem } from '@nuxt/ui'
 import type { FooterColumn } from '@nuxt/ui'
 import RLLayoutBox from "~/components/temp/RLLayoutBox.vue";
-import RLCookieBanner from "~/components/temp/RLCookieBanner.vue";
 import UnderConstruction from "~/components/temp/UnderConstruction.vue";
 import {useCookie} from "#app";
 import {ref} from "vue";
@@ -298,6 +297,5 @@ provide('navigation', navigation)
         </UFieldGroup>
       </template>
     </UFooter>
-    <RLCookieBanner cookie-policy-link="/documents/policies/cookie-policy/"/>
   </UApp>
 </template>
