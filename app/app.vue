@@ -4,11 +4,12 @@ import { ar, en, es, fr, ja, ko, pt, ro, zh_cn } from '@nuxt/ui/locale'
 import type { NavigationMenuItem } from '@nuxt/ui'
 import type { FooterColumn } from '@nuxt/ui'
 import RLLayoutBox from "~/components/temp/RLLayoutBox.vue";
+import { useCookie } from "#app";
+import { ref } from "vue";
+import { ULink } from "#components";
 import UnderConstruction from "~/components/temp/UnderConstruction.vue";
-import {useCookie} from "#app";
-import {ref} from "vue";
 
-const isHomepage = computed(() => route.path === '/');
+const isUnlocked = useState('siteUnlocked', () => false);
 
 const { locale, setLocale } = useI18n()
 
@@ -69,7 +70,7 @@ function showCookieToast() {
 }
 
 onMounted(() => {
-  if (!isHomepage.value && !cookieBannerConsent.value) {
+  if (!cookieBannerConsent.value) {
     cookieBannerConsent.value = true
     showCookieToast();
   }
@@ -220,82 +221,84 @@ provide('navigation', navigation)
 </script>
 
 <template>
-  <div v-if="isHomepage">
-    <UnderConstruction />
-  </div>
   <UApp :locale="locales[locale]">
-    <NuxtLoadingIndicator color="primary"/>
-    <UBanner color="info" icon="material-symbols:construction" title="This website is currently under construction. Feel free to report any issues!" :actions="bannerActions" close close-icon="material-symbols:close"/>
-    <UHeader mode="slideover" toggle-side="left" to="/">
-      <template #title>
-        <NuxtImg src="https://cdn.idantity.me/images/logos/logomark-white.webp" alt="Rimelight Entertainment Logomark" class="h-12 w-auto" />
-      </template>
-      <UNavigationMenu :items="headerItems" variant="link"/>
-      <template #body>
-        <UNavigationMenu :items="headerItems" variant="link" orientation="vertical" class="-mx-2.5" />
-      </template>
-      <template #right>
-        <RLLayoutBox
-          direction="horizontal"
-          gap="sm"
-        >
-          <UButton variant="link" color="neutral" label="Account"/>
-          <UButton variant="link" color="neutral" leadingIcon="lucide:circle-help" label="Support" />
-          <UButton variant="link" color="neutral" leadingIcon="lucide:settings" label="Settings" />
+    <div v-if="isUnlocked">
+      <NuxtLoadingIndicator color="primary"/>
+      <UBanner color="info" icon="material-symbols:construction" title="This website is currently under construction. Feel free to report any issues!" :actions="bannerActions" close close-icon="material-symbols:close"/>
+      <UHeader mode="slideover" toggle-side="left" to="/">
+        <template #title>
+          <NuxtImg src="https://cdn.idantity.me/images/logos/logomark-white.webp" alt="Rimelight Entertainment Logomark" class="h-12 w-auto" />
+        </template>
+        <UNavigationMenu :items="headerItems" variant="link"/>
+        <template #body>
+          <UNavigationMenu :items="headerItems" variant="link" orientation="vertical" class="-mx-2.5" />
+        </template>
+        <template #right>
           <RLLayoutBox
             direction="horizontal"
-            gap="md"
+            gap="sm"
           >
-            <UButton variant="solid" color="primary" label="Log In" />
-            <UButton variant="outline" color="primary" label="Sign Up" />
+            <UButton variant="link" color="neutral" label="Account"/>
+            <UButton variant="link" color="neutral" leadingIcon="lucide:circle-help" label="Support" />
+            <UButton variant="link" color="neutral" leadingIcon="lucide:settings" label="Settings" />
+            <RLLayoutBox
+              direction="horizontal"
+              gap="md"
+            >
+              <UButton variant="solid" color="primary" label="Log In" />
+              <UButton variant="outline" color="primary" label="Sign Up" />
+            </RLLayoutBox>
           </RLLayoutBox>
-        </RLLayoutBox>
-        <UFieldGroup>
-          <ULocaleSelect hidden v-model="locale" :locales="[ar, en, es, fr, ja, ko, pt, ro, zh_cn]" @update:model-value="setLocale($event)" color="secondary" class="w-48" />
-          <UColorModeButton/>
-        </UFieldGroup>
-      </template>
-    </UHeader>
-    <UMain>
-      <NuxtLayout>
-        <NuxtPage />
-      </NuxtLayout>
-      <ClientOnly>
-        <LazyUContentSearch
-          :files="files"
-          shortcut="meta_k"
-          :navigation="navigation"
-          :links="headerItems"
-          :fuse="{ resultLimit: 42 }"
-        />
-      </ClientOnly>
-    </UMain>
-    <UFooter>
-      <template #left>
-        <RLLayoutBox direction="vertical" gap="sm">
-          <NuxtLink to="/">
-            <NuxtImg src="https://cdn.idantity.me/images/logos/logotype-white.webp" alt="idantity.me Logotype" class="h-12"/>
-          </NuxtLink>
-          <p class="text-muted text-sm">
-            © {{ new Date().getFullYear() }} Rimelight Entertainment
-          </p>
-        </RLLayoutBox>
-      </template>
-      <template #top>
-        <UContainer>
-          <UFooterColumns :columns="columns">
-          </UFooterColumns>
-        </UContainer>
-      </template>
-      <template #right>
-        <UFieldGroup>
-          <UButton size="xl" variant="ghost" icon="mdi:instagram" to="https://www.instagram.com/idantity.me" :ui="{ leadingIcon: 'text-white' }"/>
-          <UButton size="xl" variant="ghost" icon="ic:baseline-discord" to="https://discord.com/users/682049695173836979" :ui="{ leadingIcon: 'text-white' }"/>
-          <UButton size="xl" variant="ghost" icon="mdi:spotify" to="https://open.spotify.com/user/v5m4qoc9j35ccc6nbzqcookvj?si=d795f9bc1cb34222" :ui="{ leadingIcon: 'text-white' }"/>
-          <UButton size="xl" variant="ghost" icon="mdi:github" to="https://www.github.com/idantitydotme" :ui="{ leadingIcon: 'text-white' }"/>
-          <UButton size="xl" variant="ghost" icon="mdi:linkedin" to="https://www.linkedin.com/daniel-marchi" :ui="{ leadingIcon: 'text-white' }"/>
-        </UFieldGroup>
-      </template>
-    </UFooter>
+          <UFieldGroup>
+            <ULocaleSelect hidden v-model="locale" :locales="[ar, en, es, fr, ja, ko, pt, ro, zh_cn]" @update:model-value="setLocale($event)" color="secondary" class="w-48" />
+            <UColorModeButton/>
+          </UFieldGroup>
+        </template>
+      </UHeader>
+      <UMain>
+        <NuxtLayout>
+          <NuxtPage />
+        </NuxtLayout>
+        <ClientOnly>
+          <LazyUContentSearch
+            :files="files"
+            shortcut="meta_k"
+            :navigation="navigation"
+            :links="headerItems"
+            :fuse="{ resultLimit: 42 }"
+          />
+        </ClientOnly>
+      </UMain>
+      <UFooter>
+        <template #left>
+          <RLLayoutBox direction="vertical" gap="sm">
+            <NuxtLink to="/">
+              <NuxtImg src="https://cdn.idantity.me/images/logos/logotype-white.webp" alt="idantity.me Logotype" class="h-12"/>
+            </NuxtLink>
+            <p class="text-muted text-sm">
+              © {{ new Date().getFullYear() }} Rimelight Entertainment
+            </p>
+          </RLLayoutBox>
+        </template>
+        <template #top>
+          <UContainer>
+            <UFooterColumns :columns="columns">
+            </UFooterColumns>
+          </UContainer>
+        </template>
+        <template #right>
+          <UFieldGroup>
+            <UButton size="xl" variant="ghost" icon="mdi:instagram" to="https://www.instagram.com/idantity.me" :ui="{ leadingIcon: 'text-white' }"/>
+            <UButton size="xl" variant="ghost" icon="ic:baseline-discord" to="https://discord.com/users/682049695173836979" :ui="{ leadingIcon: 'text-white' }"/>
+            <UButton size="xl" variant="ghost" icon="mdi:spotify" to="https://open.spotify.com/user/v5m4qoc9j35ccc6nbzqcookvj?si=d795f9bc1cb34222" :ui="{ leadingIcon: 'text-white' }"/>
+            <UButton size="xl" variant="ghost" icon="mdi:github" to="https://www.github.com/idantitydotme" :ui="{ leadingIcon: 'text-white' }"/>
+            <UButton size="xl" variant="ghost" icon="mdi:linkedin" to="https://www.linkedin.com/daniel-marchi" :ui="{ leadingIcon: 'text-white' }"/>
+          </UFieldGroup>
+        </template>
+      </UFooter>
+    </div>
+    <div v-else class="flex min-h-screen items-center justify-center bg-background">
+      <UnderConstruction />
+    </div>
   </UApp>
 </template>

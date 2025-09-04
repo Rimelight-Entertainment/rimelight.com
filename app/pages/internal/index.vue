@@ -96,11 +96,11 @@ const dashboardItems: NavigationMenuItem[][] = [
 <template>
   <UDashboardSidebar>
     <template #header="{ collapsed }">
-      <NuxtImg src="https://cdn.idantity.me/images/logos/logomark-white.webp" alt="Rimelight Entertainment Logomark" class="h-12 w-auto" />
-      <UDashboardSearchButton class="w-full"/>
+      <h3>Dashboard</h3>
     </template>
 
     <template #default="{ collapsed }">
+      <UDashboardSearchButton class="w-full"/>
       <UNavigationMenu
         :collapsed="collapsed"
         :items="dashboardItems[0]"

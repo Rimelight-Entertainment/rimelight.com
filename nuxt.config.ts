@@ -84,5 +84,10 @@ export default defineNuxtConfig({
                 '/',
             ]
         }
-    }
+    },
+    runtimeConfig: {
+      public: {
+        sitePassword: process.env.SITE_PASSWORD || 'rlent'
+      }
+    },
 })
