@@ -54,6 +54,8 @@ function showCookieToast() {
         variant: 'solid',
         onClick: (e) => {
           e?.stopPropagation()
+          cookieBannerConsent.value = true
+          toast.clear
         }
       },
       {
@@ -63,9 +65,16 @@ function showCookieToast() {
         variant: 'solid',
         onClick: (e) => {
           e?.stopPropagation()
+          cookieBannerConsent.value = true
+          toast.clear
         }
       }
-    ]
+    ],
+    close: {
+      onClick: () => {
+        cookieBannerConsent.value = true;
+      }
+    }
   })
 }
 
