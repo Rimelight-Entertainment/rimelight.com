@@ -25,23 +25,11 @@ const projectsFeatures = ref([
 
 const projectsLinks = ref([
   {
-    label: 'Browse my projects',
-    color: 'primary',
-    to: '/music'
-  },
-  {
     label: 'View me on GitHub',
     color: 'secondary',
     variant: 'subtle',
     trailingIcon: 'mdi:github',
     to: 'https://github.com/idantitydotme'
-  },
-  {
-    label: 'Hire me',
-    color: 'neutral',
-    variant: 'outline',
-    trailingIcon: 'lucide:send',
-    to: '/contact'
   }
 ])
 
@@ -65,24 +53,12 @@ const musicFeatures = ref([
 
 const musicLinks = ref([
   {
-    label: 'Check out my music',
-    color: 'primary',
-    to: '/music'
-  },
-  {
     label: 'View me on Spotify',
     color: 'secondary',
     variant: 'subtle',
     trailingIcon: 'mdi:spotify',
     to: 'https://open.spotify.com/user/v5m4qoc9j35ccc6nbzqcookvj?si=d795f9bc1cb34222'
   },
-  {
-    label: 'Hire me',
-    color: 'neutral',
-    variant: 'outline',
-    trailingIcon: 'lucide:send',
-    to: '/contact'
-  }
 ])
 </script>
 
