@@ -11,7 +11,8 @@ export const createImageBlock = (
 ): ImageBlockData => {
     return createBaseBlock<ImageBlockData>("image", {
         attrs: {
-            url: "",
+            src: "",
+            alt: "",
             fileName: "",
             ...initialData?.attrs,
         },

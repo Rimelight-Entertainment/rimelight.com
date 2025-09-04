@@ -13,7 +13,7 @@ export const createDialogueBlock = (
         attrs: {
             character: initialData?.attrs?.character || "",
             parenthetical: initialData?.attrs?.parenthetical || "",
-            line: initialData?.attrs?.line || [],
+            line: initialData?.attrs?.line || "",
         },
     });
 };

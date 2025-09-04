@@ -1,4 +1,4 @@
-import { ulid } from "ulid";
+import { v7 as uuidv7 } from "uuid";
 import type { BlockData } from "@/types/blocks";
 
 export function createBaseBlock<T extends BlockData>(
@@ -6,7 +6,7 @@ export function createBaseBlock<T extends BlockData>(
     initialData?: Partial<T>,
 ): T {
     const base = {
-        id: ulid(),
+        id: uuidv7(),
         type: type,
     };
     const block: T = { ...base, ...initialData } as T;
