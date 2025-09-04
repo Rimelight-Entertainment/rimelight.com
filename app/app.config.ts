@@ -47,6 +47,17 @@ export default defineAppConfig({
       defaultVariants: {
         arrow: true
       }
+    },
+    dashboardSidebar: {
+      slots: {
+        root: 'pb-16',
+        header: 'border-b border-default',
+        footer: 'border-t border-default'
+      },
+      defaultVariants: {
+        resizable: true,
+        collapsible: true,
+      }
     }
-  },
+  }
 })

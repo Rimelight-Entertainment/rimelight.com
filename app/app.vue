@@ -6,6 +6,8 @@ import type { FooterColumn } from '@nuxt/ui'
 import RLLayoutBox from "~/components/temp/RLLayoutBox.vue";
 import RLCookieBanner from "~/components/temp/RLCookieBanner.vue";
 import UnderConstruction from "~/components/temp/UnderConstruction.vue";
+import {useCookie} from "#app";
+import {ref} from "vue";
 
 const isHomepage = computed(() => route.path === '/');
 
@@ -17,6 +19,62 @@ const dir = computed(() => locales[locale.value].dir)
 const colorMode = useColorMode()
 
 const color = computed(() => colorMode.value === 'dark' ? '#020618' : 'white')
+
+const toast = useToast()
+
+const COOKIE_BANNER_CLOSED_KEY = 'cookieBannerClosed'
+
+const cookieBannerConsent = useCookie<boolean>(COOKIE_BANNER_CLOSED_KEY, {
+  default: () => false,
+  maxAge: 60 * 60 * 24 * 90,
+  secure: import.meta.env.PROD,
+  sameSite: 'lax',
+})
+
+const descriptionComponent = h('div', [
+  'This website uses ',
+  h(ULink, { href: 'https://en.wikipedia.org/wiki/HTTP_cookie', target: '_blank' }, 'cookies'),
+  ' to ensure to enhance your browsing experience. By continuing to use our site, you agree to our ',
+  h(ULink, { href: '/documents/policies/cookie-policy/' }, 'Cookie Policy'),
+  '.',
+]);
+
+function showCookieToast() {
+  toast.add({
+    duration: 0,
+    color: 'primary',
+    icon: 'lucide:cookie',
+    title: 'Cookie Consent',
+    description: () => descriptionComponent,
+    actions: [
+      {
+        icon: 'lucide:check',
+        label: 'Accept All',
+        color: 'success',
+        variant: 'solid',
+        onClick: (e) => {
+          e?.stopPropagation()
+        }
+      },
+      {
+        icon: 'lucide:x',
+        label: 'Reject All',
+        color: 'error',
+        variant: 'solid',
+        onClick: (e) => {
+          e?.stopPropagation()
+        }
+      }
+    ]
+  })
+}
+
+onMounted(() => {
+  if (!isHomepage.value && !cookieBannerConsent.value) {
+    cookieBannerConsent.value = true
+    showCookieToast();
+  }
+});
 
 useHead({
   meta: [
@@ -166,7 +224,7 @@ provide('navigation', navigation)
   <div v-if="isHomepage">
     <UnderConstruction />
   </div>
-  <UApp v-else :locale="locales[locale]">
+  <UApp :locale="locales[locale]">
     <NuxtLoadingIndicator color="primary"/>
     <UBanner color="info" icon="material-symbols:construction" title="This website is currently under construction. Feel free to report any issues!" :actions="bannerActions" close close-icon="material-symbols:close"/>
     <UHeader mode="slideover" toggle-side="left" to="/">
