@@ -1,78 +1,28 @@
 <script setup lang="ts">
-import LayoutBox from "~/components/basic/base/LayoutBox.vue";
-import Image from "~/components/basic/base/Image.vue";
-import type { NuxtError } from '#app'
-import Button from "~/components/basic/base/Button.vue";
+import type { NuxtError } from "#app";
 
-const props = withDefaults(
-    defineProps<{
-      error?: NuxtError
-    }>(),
-    {
-      error: () => ({
-        statusCode: 200,
-        statusMessage: 'No Error',
-        fatal: false,
-        unhandled: false,
-        name: 'Error',
-        message: 'An unexpected client-side error occurred.', 
-        toJSON: () => ({
-          statusCode: 200,
-          statusMessage: 'No Error',
-          fatal: false,
-          unhandled: false,
-          name: 'Error',
-          message: 'An unexpected client-side error occurred.',
-        })
-      } as NuxtError)
-    }
-)
+defineProps({
+  error: {
+    type: Object as PropType<NuxtError>,
+    required: true
+  }
+})
 
-const handleError = () => {
-  clearError({ redirect: '/' })
-}
+useSeoMeta({
+  title: 'Page not found',
+  description: 'We are sorry but this page could not be found.'
+})
 </script>
 
 <template>
-  <NuxtLayout name="default">
-      <LayoutBox
-          tag="main"
-          direction="vertical"
-          gap="lg"
-          align-items="center"
-          justify-content="center"
-      >
-        <Image
-            src="/not-found.webp"
-            alt="Mascot - Page Not Found"
-            :width="512"
-            :height="512"
-            image-class="mx-auto"
-        />
-        <h1
-            class="text-6xl font-bold text-rimelight-primary-100"
-        >
-          {{ props.error.statusCode }}
-        </h1>
-        <p class="text-2xl text-rimelight-primary-100">
-          {{ props.error.statusMessage || 'An unexpected error occurred.' }}
-        </p>
-        <p class="text-xl text-rimelight-primary-100">
-          <span v-if="props.error.statusCode === 404">Oops! The page you're looking for doesn't exist.</span>
-          <span v-else>Something went wrong on our end.</span>
-        </p>
-        <p class="text-md text-rimelight-primary-100">
-          <span v-if="props.error.statusCode === 404">It might have been moved or deleted - please check the URL or return to the homepage.</span>
-          <span v-else>Please try again later. If the issue persists, contact support.</span>
-        </p>
-        <Button
-            variant="primary"
-            size="md"
-            text="Go to Homepage"
-            aria-label="Go to Homepage"
-            @click="handleError"
-        />
-      </LayoutBox>
+  <NuxtLayout>
+    <UError
+      :error="{
+    statusCode: 404,
+    statusMessage: 'Page not found',
+    message: 'The page you are looking for does not exist.'
+  }"
+    />
   </NuxtLayout>
 </template>
 

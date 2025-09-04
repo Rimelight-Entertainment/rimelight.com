@@ -1,239 +1,109 @@
 <script setup lang="ts">
-import {computed, onUnmounted, ref, watch} from 'vue';
-import Modal from '~/components/basic/base/Modal.vue';
-import Button from '~/components/basic/base/Button.vue';
-import Input from '~/components/basic/base/Input.vue';
-import Label from '~/components/basic/base/Label.vue';
-import Icon from '~/components/basic/base/Icon.vue';
+import * as z from 'zod'
+import type { FormSubmitEvent } from '@nuxt/ui'
 
-interface EditorCallbacks {
-  showMessage?: (
-      message: string,
-      type: 'success' | 'error' | 'info' | 'warning'
-  ) => void;
-}
-
-interface ImageUploadModalProps {
-  /**
-   * Whether the modal is currently open.
-   */
-  isOpen: boolean;
-  existingImageUrl?: string;
+interface UploadImageModalProps {
   initialFile?: File | null;
-  editorCallbacks?: EditorCallbacks;
 }
 
-const props = defineProps<ImageUploadModalProps>();
+const {
+  initialFile = null,
+} = defineProps<UploadImageModalProps>();
 
 const emit = defineEmits<{
-  (e: 'update:isOpen', value: boolean): void;
-  (e: 'upload', file: File, fileName: string): void;
-}>();
+  upload: [id: string]
+}>()
 
-const fileToUpload = ref<File | null>(null);
-const inputFileName = ref('');
-const isLoading = ref(false);
-const previewUrl = ref<string | null>(null);
-const fileInputRef = ref<HTMLInputElement | null>(null);
+const fileToUpload = ref<File | null>(null)
+const isReplacingImage = !!initialFile
 
-const isReplacingImage = computed(() => !!props.existingImageUrl);
+const MAX_FILE_SIZE = 10 * 1024 * 1024
+const MIN_DIMENSIONS = { width: 200, height: 200 }
+const MAX_DIMENSIONS = { width: 4096, height: 4096 }
+const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
 
-// Watch for modal open/initialFile changes to reset state
-watch(
-    [() => props.isOpen, () => props.initialFile],
-    ([newIsOpen, newInitialFile]) => {
-      if (newIsOpen) {
-        if (newInitialFile) {
-          fileToUpload.value = newInitialFile;
-          inputFileName.value = newInitialFile.name
-              .split('.')[0]
-              .replace(/[^a-zA-Z0-9-.]/g, '');
-        } else {
-          fileToUpload.value = null;
-          inputFileName.value = '';
-        }
-        isLoading.value = false;
-        if (fileInputRef.value) {
-          fileInputRef.value.value = ''; // Clear file input value
-        }
+const formatBytes = (bytes: number, decimals = 2) => {
+  if (bytes === 0) return '0 Bytes'
+  const k = 1024
+  const dm = decimals < 0 ? 0 : decimals
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+  return Number.parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+}
+
+const schema = z.object({
+  image: z
+    .instanceof(File, {
+      message: 'Please select an image file.'
+    })
+    .refine((file) => file.size <= MAX_FILE_SIZE, {
+      message: `The image is too large. Please choose an image smaller than ${formatBytes(MAX_FILE_SIZE)}.`
+    })
+    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {
+      message: 'Please upload a valid image file (WEBP, PNG, JPG, JPEG, or GIF).'
+    })
+    .refine(
+      (file) =>
+        new Promise((resolve) => {
+          const reader = new FileReader()
+          reader.onload = (e) => {
+            const img = new Image()
+            img.onload = () => {
+              const meetsDimensions =
+                img.width >= MIN_DIMENSIONS.width &&
+                img.height >= MIN_DIMENSIONS.height &&
+                img.width <= MAX_DIMENSIONS.width &&
+                img.height <= MAX_DIMENSIONS.height
+              resolve(meetsDimensions)
+            }
+            img.src = e.target?.result as string
+          }
+          reader.readAsDataURL(file)
+        }),
+      {
+        message: `The image dimensions are invalid. Please upload an image between ${MIN_DIMENSIONS.width}x${MIN_DIMENSIONS.height} and ${MAX_DIMENSIONS.width}x${MAX_DIMENSIONS.height} pixels.`
       }
-    },
-    { immediate: true }
-);
+    )
+})
 
-// Watch for fileToUpload changes to create/revoke object URLs for preview
-watch(
-    fileToUpload,
-    (newFileToUpload, oldFileToUpload) => {
-      // Revoke previous object URL if it exists
-      if (oldFileToUpload && previewUrl.value) {
-        URL.revokeObjectURL(previewUrl.value);
-      }
+type schema = z.output<typeof schema>
 
-      if (newFileToUpload) {
-        previewUrl.value = URL.createObjectURL(newFileToUpload);
-      } else {
-        previewUrl.value = null;
-      }
-    },
-    { immediate: true }
-);
+const state = reactive<Partial<schema>>({
+  image: undefined
+})
 
-onUnmounted(() => {
-  if (previewUrl.value) {
-    URL.revokeObjectURL(previewUrl.value);
-  }
-});
-
-const handleFileChange = (event: Event) => {
-  const file = (event.target as HTMLInputElement).files?.[0];
-  if (file) {
-    fileToUpload.value = file;
-    inputFileName.value = file.name
-        .split('.')[0]
-        .replace(/[^a-zA-Z0-9-.]/g, '');
-  } else {
-    fileToUpload.value = null;
-    inputFileName.value = '';
-  }
-};
-
-const handleFileNameChange = (event: Event) => {
-  inputFileName.value = (event.target as HTMLInputElement).value;
-};
-
-const handleDragOver = (event: DragEvent) => {
-  event.preventDefault();
-  event.stopPropagation();
-};
-
-const handleDrop = (event: DragEvent) => {
-  event.preventDefault();
-  event.stopPropagation();
-  const files = event.dataTransfer?.files;
-  if (files && files.length > 0) {
-    fileToUpload.value = files[0];
-    inputFileName.value = files[0].name
-        .split('.')[0]
-        .replace(/[^a-zA-Z0-9-.]/g, '');
-    if (fileInputRef.value) {
-      fileInputRef.value.value = '';
-    }
-  }
-};
-
-const handleUploadClick = async () => {
-  if (!fileToUpload.value) {
-    props.editorCallbacks?.showMessage?.(
-        'Please select an image file.',
-        'error'
-    );
-    return;
-  }
-
-  let finalFileName = inputFileName.value.trim();
-  if (!finalFileName) {
-    finalFileName = fileToUpload.value.name.replace(/[^a-zA-Z0-9-.]/g, '');
-  } else {
-    const originalExtension = fileToUpload.value.name.split('.').pop();
-    if (originalExtension && !finalFileName.includes('.')) {
-      finalFileName = `${finalFileName}.${originalExtension}`;
-    }
-  }
-
-  if (!finalFileName) {
-    props.editorCallbacks?.showMessage?.('File name cannot be empty.', 'error');
-    return;
-  }
-
-  isLoading.value = true;
-  try {
-    emit('upload', fileToUpload.value, finalFileName);
-    emit('update:isOpen', false);
-  } catch (error) {
-    props.editorCallbacks?.showMessage?.(
-        'Image upload failed. Please try again.',
-        'error'
-    );
-    console.error('Image upload failed in modal:', error);
-  } finally {
-    isLoading.value = false;
-  }
-};
+async function onSubmit(event: FormSubmitEvent<schema>) {
+  console.log(event.data)
+}
 </script>
 
 <template>
-  <Modal
-      :is-open="props.isOpen"
-      :title="isReplacingImage ? 'Replace Image' : 'Upload Image'"
-      :description="
-      isReplacingImage
-        ? 'Choose a new image file to replace the existing one.'
-        : 'Select an image file to upload.'
-    "
-      @update:is-open="emit('update:isOpen', $event)"
-      >
-    <div
-        class="relative flex max-h-[250px] min-h-[150px] w-full cursor-pointer flex-col items-center justify-center overflow-hidden border border-dashed border-rimelight-primary-500 p-lg text-rimelight-primary-500 hover:bg-rimelight-primary-700 hover:text-white"
-        aria-label="Drag and drop or click to select image file"
-        role="button"
-        tabindex="0"
-        @click="fileInputRef?.click()"
-        @dragover="handleDragOver"
-        @drop="handleDrop"
+  <UModal
+    :title="isReplacingImage ? 'Replace Image' : 'Upload Image'"
+    :description="isReplacingImage ? 'Choose a new image file to replace the existing one.' : 'Select an image file to upload.'"
     >
-      <template v-if="!previewUrl">
-        <Icon name="addImage" size="xl" />
-        <span class="whitespace-normal text-center">
-          Drag & Drop or Click to Select File
-        </span>
-      </template>
-      <img
-          v-else
-          :src="previewUrl"
-          alt="Selected image preview"
-          class="max-h-full max-w-full object-contain"
-      >
-      <input
-          ref="fileInputRef"
-          type="file"
-          accept="image/*"
-          class="hidden"
-          @change="handleFileChange"
-      >
-    </div>
-
-    <p v-if="fileToUpload" class="break-all text-center text-sm text-rimelight-primary-200">
-      Selected File: {{ fileToUpload.name }}
-    </p>
-
-    <template v-if="fileToUpload">
-      <Label
-          html-for="fileNameInput"
-          text="File Name"
-          tooltip="Optional: Customize the file name on the server."
-      />
-      <Input
-          id="fileNameInput"
-          v-model="inputFileName"
-          type="text"
-          :placeholder="fileToUpload.name.split('.')[0]"
-          size="sm"
-          class="w-full"
-          @input="handleFileNameChange"
-      />
+    <slot/>
+    <template #body>
+      <UForm :schema="schema" :state="state" @submit="onSubmit">
+        <UFormField name="image" label="Image" :description="isReplacingImage ? 'Choose a new image file to replace the existing one.' : 'Select an image file to upload.'">
+          <UFileUpload
+            accept="image/*"
+            icon="lucide:image-up"
+            label="Drag and drop or click to select image file"
+            description="Allowed formats: WEBP, PNG, JPG, JPEG, GIF (max. 10MB)"
+            position="inside"
+            class="w-96"
+          />
+        </UFormField>
+        <UFormField name="name" label="File Name" description="Optional: Customize the file name on the server." hint="Lorem">
+          <UInput type="url" :placeholder="fileToUpload?.name.split('.')[0]" error="Please enter a valid URL."/>
+        </UFormField>
+        <UButton type="submit" :label="isReplacingImage ? 'Replace' : 'Upload'" @click="onUpload" />
+      </UForm>
     </template>
-      <Button
-          type="button"
-          :disabled="!fileToUpload || isLoading"
-          variant="primary"
-          size="sm"
-          :text="isReplacingImage ? 'Replace' : 'Upload'"
-          :is-loading="isLoading"
-          @click="handleUploadClick"
-      />
-    <template #actions>
-
-    </template>
-  </Modal>
+  </UModal>
 </template>
+
+<style scoped>
+
+</style>

@@ -1,72 +1,88 @@
-import { defineNuxtConfig  } from 'nuxt/config';
-import type { NuxtConfig } from 'nuxt/config';
-import { resolve } from "path";
-import tailwindcss from "@tailwindcss/vite";
-
 export default defineNuxtConfig({
-  compatibilityDate: '2025-05-15',
-  devtools: { enabled: true },
-  alias: {
-    '#shared-types': resolve(__dirname, './types'),
-  },
-  modules: [
-    '@nuxt/eslint',
-    '@nuxt/fonts',
-    'rimelight-web-framework',
-  ],
-  icon: {
-    customCollections: [
-      {
-        prefix: 'app-icon',
-        dir: './app/assets/icons',
-        normalizeIconName: false,
-      },
-    ],
-    clientBundle: {
-      scan: true,
-      includeCustomCollections: true,
+    compatibilityDate: '2025-07-15',
+    devtools: { enabled: true },
+    modules: ['@nuxt/ui', '@nuxtjs/i18n', '@nuxt/content', '@nuxt/image', 'nuxt-og-image', '@nuxthub/core'],
+    hub: {
+        blob: true,
+        database: true
     },
-    mode: 'svg',
-    size: '24px',
-    class: 'icon',
-  },
-  runtimeConfig: {
-    apiSecret: 'my-api-secret',
-
-    public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000',
-    }
-  },
-  app: {
-    head: {
-      title: 'Rimelight Entertainment',
-      titleTemplate: '%s | Rimelight Entertainment',
-      meta: [
-        { name: 'description', content: 'Tell your story.' },
-        { name: 'author', content: 'Rimelight Entertainment' },
-        { name: 'creator', content: 'Rimelight Entertainment' },
-      ],
-      link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-      ],
+    i18n: {
+        defaultLocale: 'en',
+        locales: [
+            { code: 'ar', name: 'العربية' },
+            { code: 'en', name: 'English' },
+            { code: 'es', name: 'Español' },
+            { code: 'fr', name: 'Français' },
+            { code: 'ja', name: '日本語' },
+            { code: 'ko', name: '한국어' },
+            { code: 'pt', name: 'Português' },
+            { code: 'ro', name: 'Română' },
+            { code: 'zh_cn', name: '简体中文' },
+        ]
     },
-  },
-  css: ["./app/assets/css/main.css"],
-  vite: {
-    plugins: [
-      tailwindcss(),
-    ],
-  },
-  fonts: {
-    google: {
-      families: {
-        'Noto Sans': {
-          weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
+    ui: {
+        prefix: 'U',
+        theme: {
+            colors: [
+                'primary',
+                'secondary',
+                'tertiary',
+                'info',
+                'success',
+                'warning',
+                'error',
+                'neutral',
+            ]
+        }
+    },
+    icon: {
+        provider: 'server',
+        class: 'icon',
+        size: '24px',
+        mode: 'svg',
+        customCollections: [
+            {
+                prefix: 'first-party',
+                dir: './app/assets/icons/first-party',
+                normalizeIconName: false,
+            },
+            {
+                prefix: 'third-party',
+                dir: './app/assets/icons/third-party',
+                normalizeIconName: false,
+            }
+        ],
+    },
+    content: {
+        build: {
+            markdown: {
+                toc: {
+                    depth: 3,
+                }
+            }
+        }
+    },
+    app: {
+        head: {
+            title: 'Rimelight Entertainment',
+            titleTemplate: '%s | Rimelight Entertainment',
+            meta: [
+                { name: 'description', content: 'Tell your story.' },
+                { name: 'author', content: 'Rimelight Entertainment' },
+                { name: 'creator', content: 'Rimelight Entertainment' },
+            ],
+            link: [
+                { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+            ],
         },
-      },
-      display: 'swap',
-      prefetch: true,
-      preconnect: true,
     },
-  } as NuxtConfig['fonts'],
+    css: ["./app/assets/css/main.css"],
+    nitro: {
+        prerender: {
+            crawlLinks: true,
+            routes: [
+                '/',
+            ]
+        }
+    }
 })
