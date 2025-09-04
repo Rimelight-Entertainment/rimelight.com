@@ -33,9 +33,10 @@ const cookieBannerConsent = useCookie<boolean>(COOKIE_BANNER_CLOSED_KEY, {
 
 const descriptionComponent = h('div', [
   'This website uses ',
-  h(ULink, { href: 'https://en.wikipedia.org/wiki/HTTP_cookie', target: '_blank' }, 'cookies'),
-  ' to ensure to enhance your browsing experience. By continuing to use our site, you agree to our ',
-  h(ULink, { href: '/documents/policies/cookie-policy/' }, 'Cookie Policy'),
+  h(ULink, { href: 'https://en.wikipedia.org/wiki/HTTP_cookie', class: 'text-primary', target: '_blank' }, 'cookies'),
+  ' to ensure to enhance your browsing experience. ',
+  h('br'),'By continuing to use our site, you agree to our ',
+  h(ULink, { href: '/documents/policies/cookie-policy/', class: 'text-primary' }, 'Cookie Policy'),
   '.',
 ]);
 
@@ -49,7 +50,7 @@ function showCookieToast() {
     actions: [
       {
         icon: 'lucide:check',
-        label: 'Accept All',
+        label: 'Accept All Cookies',
         color: 'success',
         variant: 'solid',
         onClick: (e) => {
@@ -60,7 +61,7 @@ function showCookieToast() {
       },
       {
         icon: 'lucide:x',
-        label: 'Reject All',
+        label: 'Reject All Cookies',
         color: 'error',
         variant: 'solid',
         onClick: (e) => {
